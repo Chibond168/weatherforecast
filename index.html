@@ -7,20 +7,23 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
   <body>
-    <header class="text-center header">
-      <h1>Weather Dashboard</h1>
+    <header class="hero">
+      <h1 class="app-title">
+        <i></i> Weather Dashboard
+      </h1>
     </header>
-    <main class="container">
-      <div class="row">
-        <div class="searchcity">
-          <p>Search for a city</p>
-            <textarea id ="search-city" rows="2" cols="30" width="200px">
-            </textarea>
-        </div>
-        <div>
-          <button id="go-search">Search</button>
+    <main class="flex-row justify-space-between">
+      <div class="col-12">
+        <div class="card">
+          <h4 class="card-header">Search for a city:</h4>
+          <form id="user-form" class="card-body">
+            <input name="search-city" id="search-city" type="text" autofocus="true" class="form-input" />
+            <button type="submit" class="btn" id="go-search">Search</button>
+          </form>
         </div>
       </div>
+
+
     </main>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

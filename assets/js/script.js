@@ -1,12 +1,10 @@
 // save reference to important DOM elements
+var citybutton = document.getElementById('city-button');
 var buttonGoSearch = document.querySelector("#go-search");
 var searchcity = document.querySelector("#search-city");
 var apikey = '&APPID=619585d8879c30ef87ab6a89c84609be';
-//var requesturl = "https://api.openweathermap.org/data/2.5/forecast?id=524901&appid={API key}";
 var requesturl = "https://api.openweathermap.org/data/2.5/forecast?";
 var requestloc = "https://api.openweathermap.org/geo/1.0/direct?q="; 
-//var findlocation = "https://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}"
-
 var weathericon = "https://openweathermap.org/img/wn/???@2x.png"
 var currentcity = document.querySelector("#current-city");
 var currenttemp = document.querySelector("#current-temp");
@@ -38,6 +36,69 @@ var day5temp = document.querySelector("#day5-temp");
 var day5wind = document.querySelector("#day5-wind");
 var day5weathericon = document.querySelector("#day5-weather-icon");
 var day5humidity = document.querySelector("#day5-humidity");
+
+function init(){
+
+// Retrieve data from local storage
+//var citylist = JSON.parse(localStorage.getItem("citylist"));
+//if no data in local storage, create one
+//i//f (schedulelist == null)
+//{
+//    var workschedulecontent = ["#schedule07| ", "#schedule08| ", "#schedule09| ", "#schedule10| ", "#schedule11| ", "#schedule12| ", "#schedule13| ", "#schedule14| ", "#schedule15| ", "#schedule16| ", "#schedule17| ", "#schedule18| "];
+//    localStorage.setItem("workschedule", JSON.stringify(workschedulecontent));
+////}
+//else
+//{
+//    var citycontent = [];
+//    citycontent = citylist;
+//}
+
+// loop thru the content of the stored data
+//for (var i = 0; i < citycontent.length; i++) {
+//    var todo = workschedulecontent[i];
+//    var dolist = todo.split("|");
+
+
+//    if (dolist[1].trim() == "")
+//    {
+//        $(dolist[0]).val("");
+//    }
+//    else
+//    {
+//        $(dolist[0]).val(dolist[1]);
+//    }
+
+    //Loop over the data to generate a table, each table row will have a link to the repo url
+        // Creating elements, tablerow, tabledata, and anchor
+//      var createTableRow = document.createElement('tr');
+//      var tableData = document.createElement('td');
+ //     var link = document.createElement('a');
+
+      // Setting the text of link and the href of the link
+   //   link.textContent = data[i].html_url;
+     // link.href = data[i].html_url;
+
+      // Appending the link to the tabledata and then appending the tabledata to the tablerow
+      // The tablerow then gets appended to the tablebody
+    //  tableData.appendChild(link);
+    //  createTableRow.appendChild(tableData);
+    //  tableBody.appendChild(createTableRow);
+    
+  //}
+
+  var btn=document.createElement("button");
+  btn.className = "btncity"; 
+  var btndata=document.createTextNode("delete");
+  btn.appendChild(btndata);
+  //document.getElementById("list").appendChild(list);
+  citybutton.appendChild(btn);
+
+
+
+
+
+}
+
 
 var handleCFindCityLat = function (event) {
 
@@ -194,7 +255,7 @@ var rendorWeatherRepos = function(weatherrepos)
     day5wind.innerHTML = reposWind;
     day5humidity.innerHTML = reposHumidity;
     day5weathericon.src = imgicon;
-  
 }
 
+init();
 buttonGoSearch.addEventListener('click', handleCFindCityLat);

@@ -90,6 +90,10 @@
     flex: 0 0 75%;
   }
 
+  .cardsearch {
+    margin: 0 0 20px 0;
+  }
+
   .card {
     margin: 0 0 20px 0;
   }
@@ -124,6 +128,21 @@
     border: none;
     outline: none;
     background-color: var(--lightblue);
+    transform: translate(-1px, -1px);
+  }
+
+  .btncity {
+    font-size: 1.3rem;
+    text-decoration: none;
+    padding: 6px 5px;
+    width: 100%;
+    display: block;
+    margin: 5px 0;
+    border-radius: var(--border-radius);
+    color: var(--white);
+    border: none;
+    outline: none;
+    background-color: var(--light-dark);
     transform: translate(-1px, -1px);
   }
 

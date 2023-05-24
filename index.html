@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Weather Dashboard</title>
     <link rel="stylesheet" href="./assets/css/style.css" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
+      integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U="
+      crossorigin="anonymous"></script>
   </head>
   <body>
     <header class="hero">
@@ -22,96 +26,114 @@
           </form>
         </div>
       </div>
-
       <div class="col-13">
         <div class="card">
           <h4 class="card-header" id="current-city"></h4>
+          <img id="current-weather-icon"></img>
           <form id="user-form" class="card-body">
             <div>
-              <label id="currentdate">5/23/2023</label>
+              <label id="currentdate"></label>
             </div>
             <div>
-              <label>Temp:</label><label id="current-temp">88</label><label>F</label>
+              <label>Temp: </label><label id="current-temp"></label><label> F</label>
             </div>
             <div>
-              <label>Wind:</label><label id="current-wind">88</label><label>MPH</label>
+              <label>Wind: </label><label id="current-wind"></label><label> MPH</label>
             </div>
             <div>
-              <label>Humidity:</label><label id="current-humidity">88</label><label>%</label>
+              <label>Humidity: </label><label id="current-humidity"></label><label>%</label>
             </div>
           </form>
+        </div>
+        <div>
+          <h5 class="forecast">5-day Forecast:</h5>
         </div>
         <div class="grid-container">
           <div class="item1">
             <div>
-              <label id="day1-date">5/23/2023</label>
+              <label id="day1-date"></label>
             </div>
             <div>
-              <label>Temp:</label><label id="day1-temp">88</label><label>F</label>
+              <img id="day1-weather-icon"></img>
             </div>
             <div>
-              <label>Wind:</label><label id="day1-winnd">88</label><label>MPH</label>
+              <label>Temp: </label><label id="day1-temp"></label><label> F</label>
             </div>
             <div>
-              <label>Humidity:</label><label id="day1-humidity"></label><label>88</label><label>%</label>
-            </div>
-          </div>
-          <div class="item1">
-            <div>
-              <label id="day2-date">5/23/2023</label>
+              <label>Wind: </label><label id="day1-wind"></label><label> MPH</label>
             </div>
             <div>
-              <label>Temp:</label><label id="day2-temp">88</label><label>F</label>
-            </div>
-            <div>
-              <label>Wind:</label><label id="day2-winnd">88</label><label>MPH</label>
-            </div>
-            <div>
-              <label>Humidity:</label><label id="day2-humidity"></label><label>88</label><label>%</label>
+              <label>Humidity: </label><label id="day1-humidity"></label><label></label><label>%</label>
             </div>
           </div>
           <div class="item1">
             <div>
-              <label id="day3-date">5/23/2023</label>
+              <label id="day2-date"></label>
             </div>
             <div>
-              <label>Temp:</label><label id="day3-temp">88</label><label>F</label>
+              <img id="day2-weather-icon"></img>
             </div>
             <div>
-              <label>Wind:</label><label id="day3-winnd">88</label><label>MPH</label>
+              <label>Temp: </label><label id="day2-temp"></label><label> F</label>
             </div>
             <div>
-              <label>Humidity:</label><label id="day3-humidity"></label><label>88</label><label>%</label>
+              <label>Wind: </label><label id="day2-wind"></label><label> MPH</label>
+            </div>
+            <div>
+              <label>Humidity: </label><label id="day2-humidity"></label><label></label><label>%</label>
             </div>
           </div>
-          
           <div class="item1">
             <div>
-              <label id="day4-date">5/23/2023</label>
+              <label id="day3-date"></label>
             </div>
             <div>
-              <label>Temp:</label><label id="day4-temp">88</label><label>F</label>
+              <img id="day3-weather-icon"></img>
             </div>
             <div>
-              <label>Wind:</label><label id="day4-winnd">88</label><label>MPH</label>
+              <label>Temp: </label><label id="day3-temp"></label><label> F</label>
             </div>
             <div>
-              <label>Humidity:</label><label id="day4-humidity"></label><label>88</label><label>%</label>
+              <label>Wind: </label><label id="day3-wind"></label><label> MPH</label>
+            </div>
+            <div>
+              <label>Humidity: </label><label id="day3-humidity"></label><label></label><label>%</label>
             </div>
           </div>
           
           <div class="item1">
             <div>
-              <label id="day5-date">5/23/2023</label>
+              <label id="day4-date"></label>
             </div>
             <div>
-              <label>Temp:</label><label id="day5-temp">88</label><label>F</label>
+              <img id="day4-weather-icon"></img>
             </div>
             <div>
-              <label>Wind:</label><label id="day5-winnd">88</label><label>MPH</label>
+              <label>Temp: </label><label id="day4-temp"></label><label> F</label>
             </div>
             <div>
-              <label>Humidity:</label><label id="day5-humidity"></label><label>88</label><label>%</label>
+              <label>Wind: </label><label id="day4-wind"></label><label> MPH</label>
+            </div>
+            <div>
+              <label>Humidity: </label><label id="day4-humidity"></label><label></label><label>%</label>
+            </div>
+          </div>
+          
+          <div class="item1">
+            <div>
+              <label id="day5-date"></label>
+            </div>
+            <div>
+              <img id="day5-weather-icon"></img>
+            </div>
+            <div>
+              <label>Temp: </label><label id="day5-temp"></label><label> F</label>
+            </div>
+            <div>
+              <label>Wind: </label><label id="day5-wind"></label><label> MPH</label>
+            </div>
+            <div>
+              <label>Humidity: </label><label id="day5-humidity"></label><label></label><label>%</label>
             </div>
           </div>
         </div>

@@ -100,8 +100,8 @@
   }
   .card-body {
     padding: 1%;
+    font-size: 30px;
   }
-
 
   .form-input {
     width: 88%;
@@ -127,6 +127,10 @@
     transform: translate(-1px, -1px);
   }
 
+  .forecast {
+    font-size: 30px;
+  }
+
   .grid-container {
     display: grid;
     grid-template-columns: auto auto auto auto auto;
@@ -137,7 +141,7 @@
   
   .grid-container > div {
     background-color: rgba(255, 255, 255, 0.8);
-    text-align: center;
+    text-align: left;
     padding: 80px 0;
     font-size: 30px;
   }
@@ -146,5 +150,6 @@
     grid-row-start: 1;
     grid-row-end: 3;
   }
+
 
  

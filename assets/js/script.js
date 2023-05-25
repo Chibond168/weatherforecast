@@ -37,20 +37,22 @@ var day5wind = document.querySelector("#day5-wind");
 var day5weathericon = document.querySelector("#day5-weather-icon");
 var day5humidity = document.querySelector("#day5-humidity");
 var errormsg = document.querySelector("#error-message");
-
 var searchcitylist = [];
 
+// When a user types a city, the search button function stsrts here
 var handleCFindCityLat = function (event) {
 
     errormsg.textContent = "";
     var parseParm = searchcity.value;
     parseParm = parseParm.trim();
+    // validate if the user types a city
     if (parseParm.length == 0)
     {
       errormsg.textContent = "Please enter a city";
     }
     else
     {
+      // populate the API key and send request to the remote erver
       var findlocation = requestloc + parseParm + "&limit=5" + apikey;
 
       fetch(findlocation)
@@ -60,6 +62,7 @@ var handleCFindCityLat = function (event) {
             retrieveLatRepos(locdata);
           });
         } else {
+          searchcity.value = "";
           errormsg.textContent = "Invalid city - " + locresponse.statusText;
         }
       })
@@ -68,11 +71,14 @@ var handleCFindCityLat = function (event) {
       });
 
     }
+    return;
 }
 
+// the remote server will send back the latitude and longitude of the requested city
 var retrieveLatRepos = function (repos) {
   if (repos.length === 0) {
     errormsg.textContent = 'No information found - ' + searchcity.value;
+    searchcity.value = "";
     return;
   }
 
@@ -80,9 +86,10 @@ var retrieveLatRepos = function (repos) {
   var reposLon = repos[0].lon;
 
   goFindCityInfo(reposLat, reposLon)
-
+  return;
 }
 
+// Use the latitude and longitude to pull the current day and 5-day forecasts
 var goFindCityInfo = function(parlat, parlon){
 
     var findweather = requesturl + "lat=" + parlat + "&lon=" + parlon + apikey + "&units=imperial";
@@ -92,7 +99,7 @@ var goFindCityInfo = function(parlat, parlon){
       if (weatherresponse.ok) {
         weatherresponse.json().then(function (weatherdata) {
           currentcity.innerHTML = weatherdata.city.name;
-
+          // if the requested city is stored in the local storage, we do not want to add it again
           var gotIt = 0;
           for (var i = 0; i < searchcitylist.length; i++) {
             if (searchcitylist[i].toUpperCase() == weatherdata.city.name.toUpperCase())
@@ -102,41 +109,43 @@ var goFindCityInfo = function(parlat, parlon){
           }
           if (gotIt == 0)
           {
+            // create an add-on button for the requested city, so the user does not have to re-type the city
             searchcitylist.push(weatherdata.city.name);
             localStorage.setItem("citylist", JSON.stringify(searchcitylist));
 
-            var btn=document.createElement("button");
-            btn.className = "btncity"; 
-            var btndata=document.createTextNode(weatherdata.city.name);
-            btn.appendChild(btndata);
-            btn.addEventListener('click', handleCFindLat);
-            cityButton.appendChild(btn);
-
+            createAddOnbutton (weatherdata.city.name);
           }
 
           rendorWeatherRepos(weatherdata.list);
         });
       } else {
+        searchcity.value = "";
         errormsg.textContent = "Invalid city - " + weatherresponse.statusText;
       }
     })
     .catch(function (error) {
       errormsg.textContent = "Unable to connect to GitHub";
     });
+    return;
 }
 
+// Populate the data and show it on screen
 var rendorWeatherRepos = function(weatherrepos)
 {
+    // When the page is loaded initially, we set the font size to zero, so the user cannot see the empty title.  Now, we set the font size bigger.
     var titles = document.querySelectorAll(".lbl");
     titles.forEach(function(title) {
       title.setAttribute('style','font-size:30px');
       }
     );
+
     document.querySelector(".forecast").setAttribute('style','font-size:30px');
+    // unhide the grid
     document.querySelector(".grid-container").style.display="grid";
   
     if (weatherrepos.length === 0) {
-      //repoContainerEl.textContent = 'No repositories found.';
+      errormsg.textContent = 'No information found - ' + searchcity.value;
+      searchcity.value = "";
       return;
     }
 
@@ -148,6 +157,7 @@ var rendorWeatherRepos = function(weatherrepos)
     var reposWeather = weatherrepos[0].weather[0].icon;
     var reposTemp = weatherrepos[0].main.temp;
 
+    // populate the image url so we can request the weather related icon from the remote server
     var imgicon = weathericon.replace("???", reposWeather)
 
     currentcity.innerHTML = currentcity.innerHTML + " " + reposDate;
@@ -225,8 +235,12 @@ var rendorWeatherRepos = function(weatherrepos)
     day5wind.innerHTML = reposWind;
     day5humidity.innerHTML = reposHumidity;
     day5weathericon.src = imgicon;
+
+    searchcity.value = "";
+    return;
 }
 
+// Initial step when the page is loaded the first time
 function init() {
 
   // Retrieve data from local storage
@@ -236,20 +250,27 @@ function init() {
   {
       searchcitylist = citylist;
 
-      // loop thru the content of the stored data
+      // loop thru the content of the stored data and populate the stored city button
       for (var i = 0; i < searchcitylist.length; i++) {
-        var btn=document.createElement("button");
-        btn.className = "btncity"; 
-        var btndata=document.createTextNode(searchcitylist[i]);
-        btn.appendChild(btndata);
-        btn.addEventListener('click', handleCFindLat);
-        cityButton.appendChild(btn);
+        createAddOnbutton (searchcitylist[i]);
       }
   }
   
+  // hide the grid, we have nothing to show yet
   document.querySelector(".grid-container").style.display="none";
 }
 
+function createAddOnbutton (parseCity)
+{
+  var btn = document.createElement("button");
+  btn.className = "btncity"; 
+  var btndata=document.createTextNode(parseCity);
+  btn.appendChild(btndata);
+  btn.addEventListener('click', handleCFindLat);
+  cityButton.appendChild(btn);
+}
+
+// it is for the stored city button.  
 function handleCFindLat(event)  {
   errormsg.textContent = "";
   var parseParm = event.currentTarget.innerHTML;
@@ -264,6 +285,7 @@ function handleCFindLat(event)  {
         retrieveLatRepos(locdata);
       });
     } else {
+      searchcity.value = "";
       errormsg.textContent = "Invalid city - " + locresponse.statusText;
     }
   })

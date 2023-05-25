@@ -104,6 +104,14 @@ var goFindCityInfo = function(parlat, parlon){
           {
             searchcitylist.push(weatherdata.city.name);
             localStorage.setItem("citylist", JSON.stringify(searchcitylist));
+
+            var btn=document.createElement("button");
+            btn.className = "btncity"; 
+            var btndata=document.createTextNode(weatherdata.city.name);
+            btn.appendChild(btndata);
+            btn.addEventListener('click', handleCFindLat);
+            cityButton.appendChild(btn);
+
           }
 
           rendorWeatherRepos(weatherdata.list);

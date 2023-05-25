@@ -24,12 +24,12 @@
             <input name="search-city" id="search-city" type="text" autofocus="true" class="form-input" />
             <button type="button" class="btn" id="go-search">Search</button>
           </form>
+          <div>
+            <label id="error-message" class="msg"></label>
+          </div>
         </div>
         <div id="city-button">
-          <button type="button" class="btncity">Search</button>
-          <button type="button" class="btncity">Search</button>
         </div>
-
       </div>
       <div class="col-13">
         <div class="card">
@@ -40,112 +40,109 @@
               <label id="currentdate"></label>
             </div>
             <div>
-              <label>Temp: </label><label id="current-temp"></label><label> F</label>
+              <label class="lbl" id="lblTemp">Temp: </label><label id="current-temp"></label><label class="lbl" id="lblDegree"> °F</label>
             </div>
             <div>
-              <label>Wind: </label><label id="current-wind"></label><label> MPH</label>
+              <label class="lbl" id="lblWind">Wind: </label><label id="current-wind"></label><label class="lbl" id="lblSpeed"> MPH</label>
             </div>
             <div>
-              <label>Humidity: </label><label id="current-humidity"></label><label>%</label>
+              <label class="lbl" id="lblHumd">Humidity: </label><label id="current-humidity"></label><label class="lbl" id="lblPercent">%</label>
             </div>
           </form>
         </div>
         <div>
-          <h5 class="forecast">5-day Forecast:</h5>
+          <p id="Head5day" class="forecast">5-day Forecast:</p>
         </div>
         <div class="grid-container">
           <div class="item1">
             <div>
-              <label id="day1-date"></label>
+              <label class="lbl" id="day1-date"></label>
             </div>
             <div>
               <img id="day1-weather-icon"></img>
             </div>
             <div>
-              <label>Temp: </label><label id="day1-temp"></label><label> F</label>
+              <label class="lbl" id="lblTemp1">Temp: </label><label id="day1-temp"></label><label class="lbl" id="lblDegree1"> °F</label>
             </div>
             <div>
-              <label>Wind: </label><label id="day1-wind"></label><label> MPH</label>
+              <label class="lbl" id="lblWind1">Wind: </label><label id="day1-wind"></label><label class="lbl" id="lblSpeed1"> MPH</label>
             </div>
             <div>
-              <label>Humidity: </label><label id="day1-humidity"></label><label></label><label>%</label>
+              <label class="lbl" id="lblHumd1">Humidity: </label><label id="day1-humidity"></label><label class="lbl" id="lblPercent1">%</label>
             </div>
           </div>
           <div class="item1">
             <div>
-              <label id="day2-date"></label>
+              <label class="lbl" id="day2-date"></label>
             </div>
             <div>
               <img id="day2-weather-icon"></img>
             </div>
             <div>
-              <label>Temp: </label><label id="day2-temp"></label><label> F</label>
+              <label class="lbl" id="lblTemp2">Temp: </label><label id="day2-temp"></label><label class="lbl" id="lblDegree2"> °F</label>
             </div>
             <div>
-              <label>Wind: </label><label id="day2-wind"></label><label> MPH</label>
+              <label class="lbl" id="lblWind2">Wind: </label><label id="day2-wind"></label><label class="lbl" id="lblSpeed2"> MPH</label>
             </div>
             <div>
-              <label>Humidity: </label><label id="day2-humidity"></label><label></label><label>%</label>
+              <label class="lbl" id="lblHumd2">Humidity: </label><label id="day2-humidity"></label><label class="lbl" id="lblPercent2">%</label>
             </div>
           </div>
           <div class="item1">
             <div>
-              <label id="day3-date"></label>
+              <label class="lbl" id="day3-date"></label>
             </div>
             <div>
               <img id="day3-weather-icon"></img>
             </div>
             <div>
-              <label>Temp: </label><label id="day3-temp"></label><label> F</label>
+              <label class="lbl" id="lblTemp3">Temp: </label><label id="day3-temp"></label><label class="lbl" id="lblDegree3"> °F</label>
             </div>
             <div>
-              <label>Wind: </label><label id="day3-wind"></label><label> MPH</label>
+              <label class="lbl" id="lblWind3">Wind: </label><label id="day3-wind"></label><label class="lbl" id="lblSpeed3"> MPH</label>
             </div>
             <div>
-              <label>Humidity: </label><label id="day3-humidity"></label><label></label><label>%</label>
+              <label class="lbl" id="lblHumd3">Humidity: </label><label id="day3-humidity"></label><label class="lbl" id="lblPercent3">%</label>
             </div>
           </div>
           
           <div class="item1">
             <div>
-              <label id="day4-date"></label>
+              <label class="lbl" id="day4-date"></label>
             </div>
             <div>
               <img id="day4-weather-icon"></img>
             </div>
             <div>
-              <label>Temp: </label><label id="day4-temp"></label><label> F</label>
+              <label class="lbl" id="lblTemp4">Temp: </label><label id="day4-temp"></label><label class="lbl" id="lblDegree4"> °F</label>
             </div>
             <div>
-              <label>Wind: </label><label id="day4-wind"></label><label> MPH</label>
+              <label class="lbl" id="lblWind4">Wind: </label><label id="day4-wind"></label><label class="lbl" id="lblSpeed4"> MPH</label>
             </div>
             <div>
-              <label>Humidity: </label><label id="day4-humidity"></label><label></label><label>%</label>
+              <label class="lbl" id="lblHumd4">Humidity: </label><label id="day4-humidity"></label><label class="lbl" id="lblPercent4">%</label>
             </div>
           </div>
           
           <div class="item1">
             <div>
-              <label id="day5-date"></label>
+              <label class="lbl" id="day5-date"></label>
             </div>
             <div>
               <img id="day5-weather-icon"></img>
             </div>
             <div>
-              <label>Temp: </label><label id="day5-temp"></label><label> F</label>
+              <label class="lbl" id="lblTemp5">Temp: </label><label id="day5-temp"></label><label class="lbl" id="lblDegree5"> °F</label>
             </div>
             <div>
-              <label>Wind: </label><label id="day5-wind"></label><label> MPH</label>
+              <label class="lbl" id="lblWind5">Wind: </label><label id="day5-wind"></label><label class="lbl" id="lblSpeed5"> MPH</label>
             </div>
             <div>
-              <label>Humidity: </label><label id="day5-humidity"></label><label></label><label>%</label>
+              <label class="lbl" id="lblHumd5">Humidity: </label><label id="day5-humidity"></label><label class="lbl" id="lblPercent5">%</label>
             </div>
           </div>
         </div>
       </div>
-
-      
-
     </main>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

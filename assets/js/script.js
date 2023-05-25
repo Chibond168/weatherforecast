@@ -1,5 +1,5 @@
 // save reference to important DOM elements
-var citybutton = document.getElementById('city-button');
+var cityButton = document.getElementById('city-button');
 var buttonGoSearch = document.querySelector("#go-search");
 var searchcity = document.querySelector("#search-city");
 var apikey = '&APPID=619585d8879c30ef87ab6a89c84609be';
@@ -36,78 +36,18 @@ var day5temp = document.querySelector("#day5-temp");
 var day5wind = document.querySelector("#day5-wind");
 var day5weathericon = document.querySelector("#day5-weather-icon");
 var day5humidity = document.querySelector("#day5-humidity");
+var errormsg = document.querySelector("#error-message");
 
-function init(){
-
-// Retrieve data from local storage
-//var citylist = JSON.parse(localStorage.getItem("citylist"));
-//if no data in local storage, create one
-//i//f (schedulelist == null)
-//{
-//    var workschedulecontent = ["#schedule07| ", "#schedule08| ", "#schedule09| ", "#schedule10| ", "#schedule11| ", "#schedule12| ", "#schedule13| ", "#schedule14| ", "#schedule15| ", "#schedule16| ", "#schedule17| ", "#schedule18| "];
-//    localStorage.setItem("workschedule", JSON.stringify(workschedulecontent));
-////}
-//else
-//{
-//    var citycontent = [];
-//    citycontent = citylist;
-//}
-
-// loop thru the content of the stored data
-//for (var i = 0; i < citycontent.length; i++) {
-//    var todo = workschedulecontent[i];
-//    var dolist = todo.split("|");
-
-
-//    if (dolist[1].trim() == "")
-//    {
-//        $(dolist[0]).val("");
-//    }
-//    else
-//    {
-//        $(dolist[0]).val(dolist[1]);
-//    }
-
-    //Loop over the data to generate a table, each table row will have a link to the repo url
-        // Creating elements, tablerow, tabledata, and anchor
-//      var createTableRow = document.createElement('tr');
-//      var tableData = document.createElement('td');
- //     var link = document.createElement('a');
-
-      // Setting the text of link and the href of the link
-   //   link.textContent = data[i].html_url;
-     // link.href = data[i].html_url;
-
-      // Appending the link to the tabledata and then appending the tabledata to the tablerow
-      // The tablerow then gets appended to the tablebody
-    //  tableData.appendChild(link);
-    //  createTableRow.appendChild(tableData);
-    //  tableBody.appendChild(createTableRow);
-    
-  //}
-
-  var btn=document.createElement("button");
-  btn.className = "btncity"; 
-  var btndata=document.createTextNode("delete");
-  btn.appendChild(btndata);
-  //document.getElementById("list").appendChild(list);
-  citybutton.appendChild(btn);
-
-
-
-
-
-}
-
+var searchcitylist = [];
 
 var handleCFindCityLat = function (event) {
 
-    //goFindMyStuff(39.7392364, -104.984862);
+    errormsg.textContent = "";
     var parseParm = searchcity.value;
     parseParm = parseParm.trim();
     if (parseParm.length == 0)
     {
-      //error
+      errormsg.textContent = "Please enter a city";
     }
     else
     {
@@ -120,11 +60,11 @@ var handleCFindCityLat = function (event) {
             retrieveLatRepos(locdata);
           });
         } else {
-          alert('Error: ' + locresponse.statusText);
+          errormsg.textContent = "Invalid city - " + locresponse.statusText;
         }
       })
       .catch(function (error) {
-        alert('Unable to connect to GitHub');
+        errormsg.textContent = "Unable to connect to GitHub";
       });
 
     }
@@ -132,18 +72,18 @@ var handleCFindCityLat = function (event) {
 
 var retrieveLatRepos = function (repos) {
   if (repos.length === 0) {
-    repoContainerEl.textContent = 'No repositories found.';
+    errormsg.textContent = 'No information found - ' + searchcity.value;
     return;
   }
 
   var reposLat = repos[0].lat;
   var reposLon = repos[0].lon;
 
-  goFindMyStuff(reposLat, reposLon)
+  goFindCityInfo(reposLat, reposLon)
 
 }
 
-var goFindMyStuff = function(parlat, parlon){
+var goFindCityInfo = function(parlat, parlon){
 
     var findweather = requesturl + "lat=" + parlat + "&lon=" + parlon + apikey + "&units=imperial";
 
@@ -152,24 +92,46 @@ var goFindMyStuff = function(parlat, parlon){
       if (weatherresponse.ok) {
         weatherresponse.json().then(function (weatherdata) {
           currentcity.innerHTML = weatherdata.city.name;
+
+          var gotIt = 0;
+          for (var i = 0; i < searchcitylist.length; i++) {
+            if (searchcitylist[i].toUpperCase() == weatherdata.city.name.toUpperCase())
+            {
+              gotIt = 1;
+            }
+          }
+          if (gotIt == 0)
+          {
+            searchcitylist.push(weatherdata.city.name);
+            localStorage.setItem("citylist", JSON.stringify(searchcitylist));
+          }
+
           rendorWeatherRepos(weatherdata.list);
         });
       } else {
-        alert('Error: ' + weatherresponse.statusText);
+        errormsg.textContent = "Invalid city - " + weatherresponse.statusText;
       }
     })
     .catch(function (error) {
-      alert('Unable to connect to GitHub');
+      errormsg.textContent = "Unable to connect to GitHub";
     });
 }
 
 var rendorWeatherRepos = function(weatherrepos)
 {
+    var titles = document.querySelectorAll(".lbl");
+    titles.forEach(function(title) {
+      title.setAttribute('style','font-size:30px');
+      }
+    );
+    document.querySelector(".forecast").setAttribute('style','font-size:30px');
+    document.querySelector(".grid-container").style.display="grid";
+  
     if (weatherrepos.length === 0) {
       //repoContainerEl.textContent = 'No repositories found.';
       return;
     }
- 
+
     var reformatDate = weatherrepos[0].dt_txt;
     var reposDate = dayjs(reformatDate).format('MM/DD/YYYY');
 
@@ -257,5 +219,51 @@ var rendorWeatherRepos = function(weatherrepos)
     day5weathericon.src = imgicon;
 }
 
+function init() {
+
+  // Retrieve data from local storage
+  var citylist = JSON.parse(localStorage.getItem("citylist"));
+  //if no data in local storage, create one
+  if (citylist != null)
+  {
+      searchcitylist = citylist;
+
+      // loop thru the content of the stored data
+      for (var i = 0; i < searchcitylist.length; i++) {
+        var btn=document.createElement("button");
+        btn.className = "btncity"; 
+        var btndata=document.createTextNode(searchcitylist[i]);
+        btn.appendChild(btndata);
+        btn.addEventListener('click', handleCFindLat);
+        cityButton.appendChild(btn);
+      }
+  }
+  
+  document.querySelector(".grid-container").style.display="none";
+}
+
+function handleCFindLat(event)  {
+  errormsg.textContent = "";
+  var parseParm = event.currentTarget.innerHTML;
+  parseParm = parseParm.trim();
+
+  var findlocation = requestloc + parseParm + "&limit=5" + apikey;
+
+  fetch(findlocation)
+  .then(function (locresponse) {
+    if (locresponse.ok) {
+      locresponse.json().then(function (locdata) {
+        retrieveLatRepos(locdata);
+      });
+    } else {
+      errormsg.textContent = "Invalid city - " + locresponse.statusText;
+    }
+  })
+  .catch(function (error) {
+    errormsg.textContent = "Unable to connect to GitHub";
+  });
+}
+
 init();
 buttonGoSearch.addEventListener('click', handleCFindCityLat);
+
